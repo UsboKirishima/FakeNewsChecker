@@ -1,21 +1,21 @@
-"use server"
+import { prisma } from "@/lib/prisma"
 
-import { PrismaClient } from "@prisma/client"
-import { checkNewsSchema } from "@/lib/validators"
-
-const prisma = new PrismaClient()
-
-export async function saveSearch(userId: string, url: string) {
-  const validated = checkNewsSchema.parse({ url })
-  
-  const search = await prisma.search.create({
-    data: {
-      url: validated.url,
-      verdict: "UNVERIFIED",
-      confidence: 0,
-      userId,
-    },
+export async function createSearch(data: {
+  url: string
+  verdict: string
+  confidence: number
+  aiComments?: string
+  operations?: string
+  userId: string
+}) {
+  return await prisma.search.create({
+    data,
   })
-  
-  return search
+}
+
+export async function getHistory(userId: string) {
+  return await prisma.search.findMany({
+    where: { userId },
+    orderBy: { createdAt: "desc" },
+  })
 }

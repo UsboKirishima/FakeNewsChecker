@@ -13,6 +13,6 @@ export async function checkNews(url: string) {
     verdict: "UNVERIFIED",
     confidence: 0.5,
     aiComments: response.text(),
-    operations: "",
+    operations: [],
   };
 }

@@ -13,7 +13,7 @@ export default function NewsChecker() {
   async function handleCheck() {
     setLoading(true)
     setResult(null)
-    const res = await fetch("/api/check-news", {
+    const res = await fetch("/dashboard/api/check-news", {
       method: "POST",
       body: JSON.stringify({ url }),
     })
