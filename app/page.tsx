@@ -29,18 +29,12 @@ export default function Home() {
           <p className="text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">
             Paste any news article URL and our AI will analyze it using web search to determine if it's real or fake news. Get detailed analysis and confidence scores instantly.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+          <div className="flex justify-center mt-8">
             <Link
               href="/auth/login"
               className="px-8 py-3 bg-zinc-900 text-white rounded-lg font-medium hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200 transition-colors"
             >
               Get Started
-            </Link>
-            <Link
-              href="/auth/login#features"
-              className="px-8 py-3 border border-zinc-300 rounded-lg font-medium hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800 transition-colors"
-            >
-              Learn More
             </Link>
           </div>
         </div>
