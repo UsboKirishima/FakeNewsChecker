@@ -12,12 +12,12 @@ export default function ResultDisplay({ result }: { result: { verdict: string; c
         <span className={result.verdict === "FAKE" ? "text-red-500" : "text-green-500"}>
           {result.verdict}
         </span>
-        <span className="text-muted-foreground">({(result.confidence * 100).toFixed(0)}% confidence)</span>
+        <span className="text-zinc-600 dark:text-zinc-400">({(result.confidence * 100).toFixed(0)}% confidence)</span>
       </div>
       <button onClick={() => setShowComments(!showComments)} className="text-blue-500 underline text-sm">
         {showComments ? "Hide" : "Show"} AI Comments
       </button>
-      {showComments && <p className="text-sm text-muted-foreground">{result.aiComments}</p>}
+      {showComments && <p className="text-sm text-zinc-600 dark:text-zinc-400">{result.aiComments}</p>}
     </div>
   )
 }

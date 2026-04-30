@@ -4,7 +4,6 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import ScanAnimation from "@/components/features/ScanAnimation"
 import ResultDisplay from "@/components/features/ResultDisplay"
-import { checkNews } from "@/server/gemini/client"
 
 export default function NewsChecker() {
   const [url, setUrl] = useState("")
@@ -30,7 +29,7 @@ export default function NewsChecker() {
         value={url}
         onChange={(e) => setUrl(e.target.value)}
         placeholder="Paste news article URL..."
-        className="w-full px-4 py-2 border rounded-md"
+        className="w-full px-4 py-2 border rounded-md bg-white dark:bg-zinc-900"
       />
       <Button onClick={handleCheck} disabled={loading || !url}>
         Check News
