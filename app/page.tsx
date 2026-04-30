@@ -36,16 +36,16 @@ export default function Home() {
             >
               Get Started
             </Link>
-            <Link
-              href="#how-it-works"
+            <a
+              href="#features"
               className="px-8 py-3 border border-zinc-300 rounded-lg font-medium hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800 transition-colors"
             >
               Learn More
-            </Link>
+            </a>
           </div>
         </div>
 
-          <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+        <div id="features" className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
             <div className="p-6 border rounded-lg dark:border-zinc-800">
               <div className="text-3xl font-bold mb-3 text-zinc-900 dark:text-zinc-50">01</div>
               <h3 className="font-semibold text-lg mb-2">Paste URL</h3>
