@@ -36,12 +36,12 @@ export default function Home() {
             >
               Get Started
             </Link>
-            <a
-              href="#features"
+            <Link
+              href="/auth/login#features"
               className="px-8 py-3 border border-zinc-300 rounded-lg font-medium hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800 transition-colors"
             >
               Learn More
-            </a>
+            </Link>
           </div>
         </div>
 
