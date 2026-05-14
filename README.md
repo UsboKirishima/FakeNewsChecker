@@ -1,36 +1,23 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fake News Checker
 
-## Getting Started
+Misinformation spreads fast. A single viral headline can travel across social media, messaging apps, and news feeds before anyone has a chance to verify it. By the time the truth catches up, the damage is already done — reputations are tarnished, public opinion is swayed, and false narratives take root. Fake News Checker is a simple but powerful tool designed to help you cut through the noise and figure out what's real.
 
-First, run the development server:
+At its core, the platform does one thing: you give it a link to a news article, and it tells you whether that article is likely real, fake, or unverifiable. But the way it gets there is what makes it useful. When you submit a URL, the platform doesn't just look at the article in isolation. It reads the content, runs it through an AI analysis, and simultaneously searches the live web for corroborating or contradictory sources. It cross-references claims, checks for known misinformation patterns, and weighs the evidence before delivering a verdict.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The result is presented clearly: a verdict label — Real, Fake, or Unverifiable — along with a confidence score that gives you a sense of how sure the analysis is. If you want to dig deeper, you can open a detailed AI commentary that walks through the reasoning, pointing out specific claims and explaining why they check out or don't. This transparency is important — the goal isn't to hand down judgments from on high, but to give you the context you need to make up your own mind.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The experience is designed to be fast and frictionless. You don't need to create an account to understand what the platform does, but signing in (with either Google or GitHub) unlocks the ability to save your searches. Once you're signed in, every article you check is stored in your personal search history. This means you can come back days or weeks later and review what you've found, revisit old analyses, or keep tabs on stories you've been following. The history page gives you a chronological list of everything you've checked, so nothing gets lost.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The workflow is straightforward. You land on the main page, paste a URL into the input field, and hit submit. A scanning animation plays while the analysis runs, giving you real-time feedback that something is happening. The processing time is usually short, but the animation makes the wait feel productive — you can see the system working through each step. When it's done, the verdict appears front and center, and the detailed analysis is available with a single click.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The platform is built with everyday users in mind. You don't need to be a journalist, a researcher, or a fact-checking professional to use it. If you've ever come across a headline that made you pause — that seemed too outrageous, too convenient, or too perfectly aligned with a particular agenda — this tool is for you. It's for the person scrolling through Twitter who wants to check before retweeting. It's for the group chat participant who gets a forwarded article and wants to verify before passing it along. It's for the curious reader who just wants to know whether what they're reading can be trusted.
 
-## Learn More
+Why does this matter? Because the line between real and fake news is getting harder to draw. Sophisticated misinformation campaigns mimic the look and feel of legitimate news outlets. Satire gets mistaken for fact. Out-of-context clips and cherry-picked statistics are weaponized to push narratives that don't hold up to scrutiny. Even well-intentioned people end up sharing false information simply because they didn't have the tools or the time to verify it. Fake News Checker tries to close that gap by making verification as easy as pasting a link.
 
-To learn more about Next.js, take a look at the following resources:
+The platform doesn't claim to be infallible. No automated system can be. But by combining AI analysis with live web search, it provides a strong signal that can help you decide how much weight to give an article. The confidence score makes the uncertainty explicit — when the system is less sure, it says so. And when it can't reach a conclusion, it labels the article as unverifiable rather than forcing a false binary.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+There's also a broader mission here. The more people use tools like this, the harder it becomes for misinformation to spread unchecked. Every time someone checks an article before sharing it, they're not just protecting themselves — they're helping break the chain of propagation that gives fake news its power. Over time, a habit of verification can change how information flows through communities, making them more resilient to manipulation and deception.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Whether you're a casual news consumer, a student working on a research project, a concerned citizen following an election, or just someone who wants to be more careful about what they share online, Fake News Checker is built to help. It's a straightforward tool for a complicated problem, designed to put better information in your hands so you can make better decisions about what to believe and what to pass on.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+In short: paste a link, get an answer, stay informed.
