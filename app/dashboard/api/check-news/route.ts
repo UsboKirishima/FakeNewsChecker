@@ -20,8 +20,7 @@ export async function POST(request: NextRequest) {
         url,
         verdict: result.verdict,
         confidence: result.confidence,
-        aiComments: result.aiComments,
-        operations: JSON.stringify(result.operations),
+        aiComments: JSON.stringify(result),
         userId: session.user.id,
       })
     }

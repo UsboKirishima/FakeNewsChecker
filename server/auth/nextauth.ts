@@ -11,7 +11,7 @@ export const adapter: Adapter = {
     const id = generateId();
     const stmt = db.prepare(`
       INSERT INTO User (id, name, email, emailVerified, image, createdAt, updatedAt)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
     `);
     stmt.run(id, user.name || null, user.email, user.emailVerified?.getTime() || null, user.image || null, Date.now(), Date.now());
     return { id, name: user.name || null, email: user.email, emailVerified: user.emailVerified, image: user.image || null, createdAt: new Date(), updatedAt: new Date() } as any;
@@ -31,12 +31,12 @@ export const adapter: Adapter = {
     return { ...row, emailVerified: row.emailVerified ? new Date(row.emailVerified) : null };
   },
 
-  async getUserByProviderAccountId(provider: string, providerAccountId: string) {
+  async getUserByAccount(account: { provider: string; providerAccountId: string }) {
     const stmt = db.prepare("SELECT * FROM Account WHERE provider = ? AND providerAccountId = ?");
-    const account = stmt.get(provider, providerAccountId) as any;
-    if (!account) return null;
+    const acct = stmt.get(account.provider, account.providerAccountId) as any;
+    if (!acct) return null;
     const userStmt = db.prepare("SELECT * FROM User WHERE id = ?");
-    const row = userStmt.get(account.userId) as any;
+    const row = userStmt.get(acct.userId) as any;
     if (!row) return null;
     return { ...row, emailVerified: row.emailVerified ? new Date(row.emailVerified) : null };
   },
@@ -45,14 +45,14 @@ export const adapter: Adapter = {
     const id = generateId();
     const stmt = db.prepare(`
       INSERT INTO Account (id, userId, type, provider, providerAccountId, refresh_token, access_token, expires_at, token_type, scope, id_token, session_state)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
     stmt.run(
       id, account.userId, account.type, account.provider, account.providerAccountId,
       account.refresh_token || null, account.access_token || null, account.expires_at || null, account.token_type || null,
       account.scope || null, account.id_token || null, account.session_state || null
     );
-    return account as any;
+    return { ...account, id } as any;
   },
 
   async createSession(session) {
@@ -130,10 +130,12 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+      allowDangerousEmailAccountLinking: true,
     }),
     GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID || "",
       clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
+      allowDangerousEmailAccountLinking: true,
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
