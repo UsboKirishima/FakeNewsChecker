@@ -16,7 +16,7 @@ export default function ConfidenceGauge({ confidence, size = 140 }: Props) {
 
   return (
     <div className="flex flex-col items-center gap-1">
-      <svg width={size} height={size / 2 + 10} viewBox={`0 0 ${size} ${size / 2 + 10}`}>
+      <svg width={size} height={size / 2 + 30} viewBox={`0 0 ${size} ${size / 2 + 30}`}>
         <path
           d={`M ${strokeWidth / 2} ${size / 2} A ${radius} ${radius} 0 0 1 ${size - strokeWidth / 2} ${size / 2}`}
           fill="none"
@@ -58,7 +58,7 @@ export default function ConfidenceGauge({ confidence, size = 140 }: Props) {
           confidence
         </text>
       </svg>
-      <span className="text-xs font-medium" style={{ color }}>
+      <span className="text-xs font-medium mt-2" style={{ color }}>
         {label}
       </span>
     </div>

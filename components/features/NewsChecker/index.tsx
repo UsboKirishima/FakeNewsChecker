@@ -50,7 +50,7 @@ export default function NewsChecker() {
         <Button
           onClick={handleReset}
           variant="outline"
-          className="w-full gap-2"
+          className="w-full gap-2 items-center"
         >
           <RotateCcw size={14} />
           Check Another Article
