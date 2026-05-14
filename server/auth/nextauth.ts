@@ -2,12 +2,12 @@ import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import { db } from "@/lib/db";
-import type { Adapter } from "next-auth/adapters";
+import type { Adapter, AdapterUser, AdapterAccount } from "next-auth/adapters";
 
 const generateId = () => Math.random().toString(36).substring(2) + Date.now().toString(36);
 
 export const adapter: Adapter = {
-  async createUser(user) {
+  async createUser(user: Omit<AdapterUser, "id">) {
     const id = generateId();
     const stmt = db.prepare(`
       INSERT INTO User (id, name, email, emailVerified, image, createdAt, updatedAt)
@@ -41,7 +41,7 @@ export const adapter: Adapter = {
     return { ...row, emailVerified: row.emailVerified ? new Date(row.emailVerified) : null };
   },
 
-  async linkAccount(account) {
+  async linkAccount(account: AdapterAccount) {
     const id = generateId();
     const stmt = db.prepare(`
       INSERT INTO Account (id, userId, type, provider, providerAccountId, refresh_token, access_token, expires_at, token_type, scope, id_token, session_state)
@@ -55,13 +55,14 @@ export const adapter: Adapter = {
     return { ...account, id } as any;
   },
 
-  async createSession(session) {
+  async createSession(session: { sessionToken: string; userId: string; expires: Date }) {
+    const id = generateId();
     const stmt = db.prepare(`
       INSERT INTO Session (id, sessionToken, userId, expires)
       VALUES (?, ?, ?, ?)
     `);
-    stmt.run(session.id, session.sessionToken, session.userId, session.expires.getTime());
-    return session as any;
+    stmt.run(id, session.sessionToken, session.userId, session.expires.getTime());
+    return { ...session, id } as any;
   },
 
   async getSessionAndUser(sessionToken) {
