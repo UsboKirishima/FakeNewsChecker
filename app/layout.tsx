@@ -30,6 +30,19 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                let theme = localStorage.getItem("theme") || "system";
+                if (theme === "system") {
+                  theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+                }
+                document.documentElement.classList.add(theme);
+              } catch (e) {}
+            `,
+          }}
+        />
         <Providers>
           {children}
         </Providers>
