@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Clock, ExternalLink, ArrowLeft, Search } from "lucide-react"
+import { Clock, ExternalLink, Search } from "lucide-react"
 import type { SearchRecord } from "@/lib/types"
 import SearchDetail from "@/components/features/SearchDetail"
 
@@ -54,7 +54,6 @@ export default function SearchHistory() {
   return (
     <div className="space-y-2.5">
       {searches.map((s) => {
-        const now = Date.now()
         const date = s.createdAt * 1000 > 1e12 ? s.createdAt : s.createdAt * 1000
         const ts = new Date(date)
         const verdictColor =

@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useCallback, useContext, useEffect, useState } from "react"
+import { createContext, useCallback, useContext, useEffect, useState, useSyncExternalStore } from "react"
 
 type Theme = "dark" | "light" | "system"
 
@@ -23,16 +23,13 @@ export function ThemeProvider({
   defaultTheme = "system",
   enableSystem = true,
 }: ThemeProviderProps) {
-  const [theme, setThemeState] = useState<Theme>(defaultTheme)
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-    const stored = localStorage.getItem("theme") as Theme | null
-    if (stored) {
-      setThemeState(stored)
+  const [theme, setThemeState] = useState<Theme>(() => {
+    if (typeof window !== "undefined") {
+      return (localStorage.getItem("theme") as Theme) || defaultTheme;
     }
-  }, [])
+    return defaultTheme;
+  })
+  const mounted = useSyncExternalStore(() => () => {}, () => true, () => false)
 
   const applyTheme = useCallback((t: Theme) => {
     const resolved = t === "system"
@@ -46,7 +43,7 @@ export function ThemeProvider({
     setThemeState(newTheme)
     try {
       localStorage.setItem("theme", newTheme)
-    } catch (e) {}
+    } catch {}
     applyTheme(newTheme)
   }, [applyTheme])
 

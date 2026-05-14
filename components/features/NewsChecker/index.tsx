@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Search, ArrowRight, Globe, RotateCcw } from "lucide-react"
+import { ArrowRight, Globe, RotateCcw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import ScanAnimation from "@/components/features/ScanAnimation"
 import ResultDisplay from "@/components/features/ResultDisplay"
