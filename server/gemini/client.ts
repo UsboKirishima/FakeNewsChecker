@@ -105,5 +105,5 @@ ${history.map((h) => `${h.role.toUpperCase()}: ${h.content}`).join("\n")}
 Answer the user's latest question concisely and helpfully, referencing the article analysis.`;
 
   const result = await model.generateContent(contextPrompt + "\n\nUser: " + message);
-  return (await result.response).text();
+  return (result.response).text();
 }
