@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
-import { Menu, X, Shield, Clock, User, LogOut, ChevronDown } from "lucide-react"
+import { Menu, X, Shield, Clock, User, LogOut, ChevronDown, Target } from "lucide-react"
 import { useSession, signOut } from "next-auth/react"
 import { ThemeToggle } from "@/components/features/ThemeToggle"
 
@@ -64,6 +64,13 @@ export default function Navbar() {
             className="text-sm text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors"
           >
             API
+          </Link>
+          <Link
+            href="/agenda-2030"
+            className="flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors"
+          >
+            <Target size={14} />
+            Agenda 2030
           </Link>
           {session ? (
             <div className="relative" ref={dropdownRef}>
@@ -160,6 +167,14 @@ export default function Navbar() {
               className="rounded-lg px-3 py-2.5 text-sm text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800 transition-colors"
             >
               API
+            </Link>
+            <Link
+              href="/agenda-2030"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-1.5 rounded-lg px-3 py-2.5 text-sm text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800 transition-colors"
+            >
+              <Target size={14} />
+              Agenda 2030
             </Link>
             {session ? (
               <>
