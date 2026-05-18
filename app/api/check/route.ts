@@ -1,9 +1,16 @@
 import { NextRequest, NextResponse } from "next/server"
 import { checkNews } from "@/server/gemini/client"
+import { rateLimiter } from "@/lib/rate-limiter"
 
 const API_KEY = process.env.API_KEY
 
 export async function POST(request: NextRequest) {
+  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "unknown"
+  const limit = rateLimiter(`api-check:${ip}`, { windowMs: 60_000, max: 10 })
+  if (!limit.success) {
+    return NextResponse.json({ error: "Too many requests. Try again later." }, { status: 429, headers: { "Retry-After": String(limit.reset) } })
+  }
+
   const apiKey = request.headers.get("x-api-key")
 
   if (API_KEY && apiKey !== API_KEY) {

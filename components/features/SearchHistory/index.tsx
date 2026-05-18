@@ -54,7 +54,7 @@ export default function SearchHistory() {
   return (
     <div className="space-y-2.5">
       {searches.map((s) => {
-        const date = s.createdAt * 1000 > 1e12 ? s.createdAt : s.createdAt * 1000
+        const date = s.createdAt > 1e12 ? s.createdAt : s.createdAt * 1000
         const ts = new Date(date)
         const verdictColor =
           s.verdict === "FAKE" ? "text-red-600 dark:text-red-400" : s.verdict === "REAL" ? "text-emerald-600 dark:text-emerald-400" : "text-amber-600 dark:text-amber-400"

@@ -3,9 +3,16 @@ import { checkNews } from "@/server/gemini/client"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/server/auth/nextauth"
 import { createSearch } from "@/server/actions/search"
+import { rateLimiter } from "@/lib/rate-limiter"
 
 export async function POST(request: NextRequest) {
   const session = await getServerSession(authOptions)
+  const key = session?.user?.id || request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown"
+  const limit = rateLimiter(`check-news:${key}`, { windowMs: 60_000, max: 10 })
+  if (!limit.success) {
+    return NextResponse.json({ error: "Too many requests. Try again later." }, { status: 429, headers: { "Retry-After": String(limit.reset) } })
+  }
+
   const { url } = await request.json()
 
   if (!url) {
