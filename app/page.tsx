@@ -57,12 +57,12 @@ export default function Home() {
                   <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
                   <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
                   <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
-                  <span className="ml-2 text-xs text-zinc-400">fake-news-checker.app</span>
+                  <span className="ml-2 text-xs text-zinc-400">fake-news-checker-ebon.vercel.app</span>
                 </div>
                 <div className="p-5 sm:p-6 space-y-3">
                   <div className="flex items-center gap-2 rounded-lg border border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/50 px-3.5 py-2.5">
                     <span className="text-sm text-zinc-400">https://</span>
-                    <span className="flex-1 text-sm text-zinc-600 dark:text-zinc-400">example.com/news/article</span>
+                    <span className="flex-1 text-sm text-zinc-600 dark:text-zinc-400">fake-news-checker-ebon.vercel.app/news/article</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="flex-1 h-2 rounded-full bg-zinc-100 dark:bg-zinc-800 overflow-hidden">

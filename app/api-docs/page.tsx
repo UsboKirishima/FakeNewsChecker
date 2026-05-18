@@ -12,7 +12,7 @@ const endpoints = [
         { name: "x-api-key", value: "your-api-key", required: false, note: "Required if API_KEY is configured on the server" },
       ],
       body: `{
-  "url": "https://example.com/news/article"
+  "url": "https://fake-news-checker-ebon.vercel.app/news/article"
 }`,
     },
     response: `{
@@ -35,17 +35,17 @@ const endpoints = [
   ],
   "keyFindings": ["Finding 1", "Finding 2"]
 }`,
-    example: `curl -X POST https://your-domain.com/api/check \\
+    example: `curl -X POST https://fake-news-checker-ebon.vercel.app/api/check \\
   -H "Content-Type: application/json" \\
   -H "x-api-key: your-api-key" \\
-  -d '{ "url": "https://example.com/news/article" }'`,
+  -d '{ "url": "https://fake-news-checker-ebon.vercel.app/news/article" }'`,
   },
 ]
 
 const codeExamples = [
-  { lang: "curl", code: 'curl -X POST https://your-domain.com/api/check \\\n  -H "Content-Type: application/json" \\\n  -H "x-api-key: your-api-key" \\\n  -d \'{ "url": "https://example.com/news" }\'' },
-  { lang: "JavaScript", code: 'fetch("https://your-domain.com/api/check", {\n  method: "POST",\n  headers: {\n    "Content-Type": "application/json",\n    "x-api-key": "your-api-key",\n  },\n  body: JSON.stringify({ url: "https://example.com/news" }),\n})\n  .then((r) => r.json())\n  .then(console.log);' },
-  { lang: "Python", code: 'import requests\n\nresponse = requests.post(\n    "https://your-domain.com/api/check",\n    headers={\n        "Content-Type": "application/json",\n        "x-api-key": "your-api-key",\n    },\n    json={"url": "https://example.com/news"},\n)\nprint(response.json())' },
+  { lang: "curl", code: 'curl -X POST https://fake-news-checker-ebon.vercel.app/api/check \\\n  -H "Content-Type: application/json" \\\n  -H "x-api-key: your-api-key" \\\n  -d \'{ "url": "https://fake-news-checker-ebon.vercel.app/news" }\'' },
+  { lang: "JavaScript", code: 'fetch("https://fake-news-checker-ebon.vercel.app/api/check", {\n  method: "POST",\n  headers: {\n    "Content-Type": "application/json",\n    "x-api-key": "your-api-key",\n  },\n  body: JSON.stringify({ url: "https://fake-news-checker-ebon.vercel.app/news" }),\n})\n  .then((r) => r.json())\n  .then(console.log);' },
+  { lang: "Python", code: 'import requests\n\nresponse = requests.post(\n    "https://fake-news-checker-ebon.vercel.app/api/check",\n    headers={\n        "Content-Type": "application/json",\n        "x-api-key": "your-api-key",\n    },\n    json={"url": "https://fake-news-checker-ebon.vercel.app/news"},\n)\nprint(response.json())' },
 ]
 
 export default function ApiDocsPage() {
