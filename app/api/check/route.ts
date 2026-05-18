@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { checkNews } from "@/server/gemini/client"
 import { rateLimiter } from "@/lib/rate-limiter"
+import { checkNewsSchema } from "@/lib/validators"
 
 const API_KEY = process.env.API_KEY
 
@@ -17,17 +18,19 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized. Provide a valid API key via x-api-key header." }, { status: 401 })
   }
 
-  let url: string
+  let body: { url: string }
   try {
-    const body = await request.json()
-    url = body.url
+    body = await request.json()
   } catch {
     return NextResponse.json({ error: "Invalid JSON body. Provide { \"url\": \"...\" }" }, { status: 400 })
   }
 
-  if (!url || typeof url !== "string") {
-    return NextResponse.json({ error: "Missing or invalid 'url' field" }, { status: 400 })
+  const parsed = checkNewsSchema.safeParse(body)
+  if (!parsed.success) {
+    return NextResponse.json({ error: parsed.error.message || "Invalid URL" }, { status: 400 })
   }
+
+  const { url } = parsed.data
 
   try {
     const result = await checkNews(url)

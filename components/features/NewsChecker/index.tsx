@@ -6,6 +6,17 @@ import { Button } from "@/components/ui/button"
 import ScanAnimation from "@/components/features/ScanAnimation"
 import ResultDisplay from "@/components/features/ResultDisplay"
 import type { AnalysisResult } from "@/lib/types"
+import { normalizeUrl } from "@/lib/validators"
+
+function isValidUrl(str: string): boolean {
+  if (!str) return false
+  try {
+    const u = new URL(normalizeUrl(str))
+    return u.protocol === "http:" || u.protocol === "https:"
+  } catch {
+    return false
+  }
+}
 
 export default function NewsChecker() {
   const [url, setUrl] = useState("")
@@ -13,8 +24,12 @@ export default function NewsChecker() {
   const [result, setResult] = useState<AnalysisResult | null>(null)
   const [error, setError] = useState("")
 
+  const trimmed = url.trim()
+  const normalized = normalizeUrl(trimmed)
+  const urlInvalid = trimmed.length > 0 && !isValidUrl(trimmed)
+
   async function handleCheck() {
-    if (!url.trim()) return
+    if (!isValidUrl(trimmed)) return
     setLoading(true)
     setResult(null)
     setError("")
@@ -23,7 +38,7 @@ export default function NewsChecker() {
       const res = await fetch("/dashboard/api/check-news", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url: url.trim() }),
+        body: JSON.stringify({ url: normalized }),
       })
       const data = await res.json()
       if (!res.ok) {
@@ -46,7 +61,7 @@ export default function NewsChecker() {
   if (result) {
     return (
       <div className="space-y-6 items-center">
-        <ResultDisplay result={result} url={url.trim()} />
+        <ResultDisplay result={result} url={normalized} />
         <Button
           onClick={handleReset}
           variant="outline"
@@ -74,7 +89,7 @@ export default function NewsChecker() {
               placeholder="Paste a news article URL to verify..."
               className="flex-1 bg-transparent py-2.5 text-sm outline-none placeholder:text-zinc-400 text-zinc-900 dark:text-zinc-100"
             />
-            <Button onClick={handleCheck} disabled={loading || !url.trim()} className="shrink-0 gap-1.5">
+            <Button onClick={handleCheck} disabled={loading || !trimmed || urlInvalid} className="shrink-0 gap-1.5">
               {loading ? (
                 <span className="flex items-center gap-1.5">
                   <span className="h-3.5 w-3.5 rounded-full border-2 border-white/30 border-t-white animate-spin" />
@@ -91,7 +106,13 @@ export default function NewsChecker() {
         </div>
       </div>
 
-      {error && (
+      {urlInvalid && (
+        <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/40 px-5 py-3 text-sm text-red-600 dark:text-red-400">
+          Please enter a valid URL starting with http:// or https://
+        </div>
+      )}
+
+      {error && !urlInvalid && (
         <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/40 px-5 py-3 text-sm text-red-600 dark:text-red-400">
           {error}
         </div>

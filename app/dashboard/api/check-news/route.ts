@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/server/auth/nextauth"
 import { createSearch } from "@/server/actions/search"
 import { rateLimiter } from "@/lib/rate-limiter"
+import { checkNewsSchema } from "@/lib/validators"
 
 export async function POST(request: NextRequest) {
   const session = await getServerSession(authOptions)
@@ -13,11 +14,19 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Too many requests. Try again later." }, { status: 429, headers: { "Retry-After": String(limit.reset) } })
   }
 
-  const { url } = await request.json()
-
-  if (!url) {
-    return NextResponse.json({ error: "URL is required" }, { status: 400 })
+  let body: { url: string }
+  try {
+    body = await request.json()
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 })
   }
+
+  const parsed = checkNewsSchema.safeParse(body)
+  if (!parsed.success) {
+    return NextResponse.json({ error: parsed.error.message || "Invalid URL" }, { status: 400 })
+  }
+
+  const { url } = parsed.data
 
   try {
     const result = await checkNews(url)
