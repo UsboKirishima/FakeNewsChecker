@@ -86,7 +86,7 @@ Return ONLY valid JSON (no markdown, no code fences) with this exact structure:
 Use web search to verify claims. Be thorough and objective.`;
 
   const result = await model.generateContent(prompt);
-  const response = await result.response;
+  const response = result.response;
   return parseGeminiResponse(response.text());
 }
 
