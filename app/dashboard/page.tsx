@@ -1,12 +1,14 @@
 import Navbar from "@/components/layout/Navbar"
 import NewsChecker from "@/components/features/NewsChecker"
+import { ProfileCard } from "@/components/features/ProfileCard"
 
 export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-zinc-50 to-white dark:from-zinc-950 dark:to-zinc-900">
       <Navbar />
-      <div className="mx-auto max-w-3xl px-4 pt-24 pb-12 sm:pt-28 sm:pb-16 lg:pb-20">
-        <div className="mb-10 text-center space-y-3">
+      <div className="mx-auto max-w-3xl px-4 pt-24 pb-12 sm:pt-28 sm:pb-16 lg:pb-20 space-y-8">
+        <ProfileCard />
+        <div className="text-center space-y-3">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
             Fake News Checker
           </h1>
